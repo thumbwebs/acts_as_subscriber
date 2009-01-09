@@ -12,7 +12,7 @@ self.prefix = 'backend'
 self.timeout = 5
 
 ## basic authenication
-def tw_resources
+
 ## get working with basic authenication which is the present rails way
 ## and then we can work on api authenication
 self.username = @@thumbwebs_username
