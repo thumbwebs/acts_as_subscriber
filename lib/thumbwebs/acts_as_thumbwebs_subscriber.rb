@@ -15,12 +15,13 @@ module Thumbwebs
     # any method placed here will apply to instances, like @user
     def is_thumbwebs_subscriber?
       begin
-      Channel_Subscriber.find(:all, :params => {:email => self.email,
+     Channel_Subscriber.find(:all, :params => {:email => self.email,
                                         :channel_id  => @@thumbwebs_channel_id
-                                        :uid => self.id)
-      rescue
+                                        :uid => self.id}
+      rescue ActiveResource::ResourceNotFound
         return false
       end  
-    end  
+   end  
+  
   end
 end

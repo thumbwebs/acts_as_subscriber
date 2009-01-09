@@ -11,7 +11,8 @@ end
 @@thumbwebs_channel_id = thumbwebs_config[:channel_id]
 @@thumbwebs_api = thumbwebs_config[:api]
 @@thumbwebs_secret_key = thumbwebs_config[:secret_key]
-
+@@thumbwebs_username = thumbwebs_config[:username]
+@@thumbwebs_password = thumbwebs_config[:password]
 
 ## Adding directories to the load path makes them appear just like files in the the
 ## main app directory - except that they are only loaded once, so you have to restart 
