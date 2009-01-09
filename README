@@ -1,7 +1,13 @@
 Thumbwebs
 =========
 
-Introduction goes here.
+Adds acts_as_thumbwebs_subscriber to the User Model
+Adds method is_thumbwebs_subscriber? to user model
+
+Uses active resource to call thumbwebs.com to check to see if user has an active subscription to the thumbweb.
+
+Returns the subscription record if so, otherwise returns Error.
+
 
 
 Example
