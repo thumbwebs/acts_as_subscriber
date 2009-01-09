@@ -1,18 +1,21 @@
 # Thumbwebs
 require 'thumbwebs/acts_as_thumbwebs_subscriber'
 
-begin
+#begin
   @@thumbwebs_config_path =  (RAILS_ROOT + '/config/thumbwebs.yml')
-  @@thumbwebs_config = @@thumbwebs_config = YAML.load(ERB.new(File.read(@@thumbwebs_config_path)).result)[RAILS_ENV].symbolize_keys
+ # @@thumbwebs_config = @@thumbwebs_config =YAML.load(ERB.new(File.read(@@thumbwebs_config_path)).result)[RAILS_ENV].symbolize_keys
+#@@thumbwebs_config = YAML.load(ERB.new(File.read(RAILS_ROOT+"/config/thumbwebs.yml")).result)[RAILS_ENV]
+@@thumbwebs_config = YAML::load(File.open("#{RAILS_ROOT}/config/thumbwebs.yml"))
+
 #rescue
 #  raise ConfigFileNotFoundError.new('File %s not found' % @@thumbwebs_config_path)
-end
+#end
 
-@@thumbwebs_channel_id = thumbwebs_config[:channel_id]
-@@thumbwebs_api = thumbwebs_config[:api]
-@@thumbwebs_secret_key = thumbwebs_config[:secret_key]
-@@thumbwebs_username = thumbwebs_config[:username]
-@@thumbwebs_password = thumbwebs_config[:password]
+@@thumbwebs_channel_id = @@thumbwebs_config[:channel_id]
+@@thumbwebs_api = @@thumbwebs_config[:api]
+@@thumbwebs_secret_key = @@thumbwebs_config[:secret_key]
+@@thumbwebs_username = @@thumbwebs_config[:username]
+@@thumbwebs_password = @@thumbwebs_config[:password]
 
 ## Adding directories to the load path makes them appear just like files in the the
 ## main app directory - except that they are only loaded once, so you have to restart 
@@ -33,3 +36,4 @@ end
 
 
 
+#@config = YAML::load(File.open("#{RAILS_ROOT}/config/config.yml"))
