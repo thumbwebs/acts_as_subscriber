@@ -1,22 +1,23 @@
-class Subscriber <  Thumbwebs
+class Subscriber  < ActiveResource::Base 
  
   # In the case where you already have an existing model with the same name as the desired 
   # RESTful resource you can set the element_name value
   # self.element_name = "subscriber"
   # self.site = "http://thumbwebs.com"   <= production
-  self.site = "http://localhost:3000"
+  ## Subscribers is nested under channels on server
+  self.site = "http://localhost:3000/channels/#{THUMBWEBS_CHANNEL_ID}/"
 
   #self.prefix = 'backend'
 
   # sets timeout -defaults to 60 seconds which is too much to tie up a thread.
-  self.timeout = 5
+  self.timeout = 10
 
   ## basic authenication
 
   ## get working with basic authenication which is the present rails way
   ## and then we can work on api authenication
-  self.username = "#{THUMBWEBS_PASSWORD}|{#THUMBWEBS_CHANNEL_ID}#{THUMBWEBS_API}"
-  self.password = @@thumbwebs_password
+  self.user = THUMBWEBS_USERNAME
+  self.password = THUMBWEBS_PASSWORD
   
   
 end  
