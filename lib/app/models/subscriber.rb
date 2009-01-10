@@ -1,4 +1,4 @@
-class Subscriber <  ActiveResource::Base
+class Subscriber <  Thumbwebs
  
   # In the case where you already have an existing model with the same name as the desired 
   # RESTful resource you can set the element_name value
@@ -15,8 +15,8 @@ class Subscriber <  ActiveResource::Base
 
   ## get working with basic authenication which is the present rails way
   ## and then we can work on api authenication
-  #self.username = @@thumbwebs_username
-  #self.password = @@thumbwebs_password
+  self.username = "#{THUMBWEBS_PASSWORD}|{#THUMBWEBS_CHANNEL_ID}#{THUMBWEBS_API}"
+  self.password = @@thumbwebs_password
   
   
 end  
