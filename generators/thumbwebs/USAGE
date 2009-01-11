@@ -1,8 +1,8 @@
 Description:
-    Explain the generator
+    Creates a migration that adds thumbwebs_id fields to the given model
 
 Example:
-    ./script/generate thumbwebs Thing
+    ./script/generate thumbwebs user
 
     This will create:
-        what/will/it/create
+        db/migrate/TIMESTAMP_add_thumbwebs_fields_to_user

@@ -15,7 +15,8 @@ module Thumbwebs
     # any method placed here will apply to instances, like @user
     def is_thumbwebs_subscriber?(options = {})
       begin
-        Subscriber.find(:all, :params => {:email => self.email,
+        @subscriber= Thumbwebs::Subscriber.find(self.id)
+        Thumbwebs::Subscriber.find(:all, :params => {:email => self.email,
                                           :channel_id  => THUMBWEBS_CHANNEL_ID,
                                           :uid => self.id})
       rescue ActiveResource::ResourceNotFound
@@ -23,8 +24,8 @@ module Thumbwebs
       end  
    end  
    
-   def join_thumbwebs
-     Subscriber.new(:name => self.username,:email => self.email).post(:signup)
+   def register_thumbwebs
+     Subscriber.new(:name => self.username,:email => self.email).post(:register)
    end   
   end
 end

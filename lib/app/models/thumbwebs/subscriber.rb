@@ -1,10 +1,12 @@
-class Subscriber  < ActiveResource::Base 
+class Thumbwebs::Subscriber  < ActiveResource::Base 
  
   # In the case where you already have an existing model with the same name as the desired 
   # RESTful resource you can set the element_name value
   # self.element_name = "subscriber"
   # self.site = "http://thumbwebs.com"   <= production
   ## Subscribers is nested under channels on server
+
+  # this will nest subscribers under channels
   self.site = "http://localhost:3000/channels/#{THUMBWEBS_CHANNEL_ID}/"
 
   #self.prefix = 'backend'

@@ -28,9 +28,10 @@ puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ## you develop the plugin.
 ## see http://guides.rubyonrails.org/creating_plugins.html
 
-%w{ models }.each do |dir|
+%w{controllers/thumbwebs models/thumbwebs views/thumbwebs helpers/thumbwebs }.each do |dir|
   path = File.join(File.dirname(__FILE__), 'app', dir)
   $LOAD_PATH << path
+  puts "Thumbwebs: #{path}"
   ActiveSupport::Dependencies.load_paths << path
   ActiveSupport::Dependencies.load_once_paths.delete(path)
 end
