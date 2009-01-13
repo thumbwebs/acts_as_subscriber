@@ -18,6 +18,7 @@ THUMBWEBS_CHANNEL_ID =  @@thumbwebs_config['channel_id']
 #@@thumbwebs_secret_key = @@thumbwebs_config[:secret_key]
 THUMBWEBS_USERNAME = @@thumbwebs_config['username']
 THUMBWEBS_PASSWORD = @@thumbwebs_config['password']
+THUMBWEBS_SITE_URL = @@thumbwebs_config['site_url']
 
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ## Adding directories to the load path makes them appear just like files in the the

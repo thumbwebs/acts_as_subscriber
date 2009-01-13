@@ -1,4 +1,4 @@
-class Thumbwebs::Subscriber  < ActiveResource::Base 
+class Thumbwebs::Channel  < ActiveResource::Base 
  
   # In the case where you already have an existing model with the same name as the desired 
   # RESTful resource you can set the element_name value
@@ -7,8 +7,8 @@ class Thumbwebs::Subscriber  < ActiveResource::Base
   ## Subscribers is nested under channels on server
 
   # this will nest subscribers under channels
-  self.site = "#{THUMBWEBS_SITE_URL}#{THUMBWEBS_CHANNEL_ID}/"
-
+  #self.site = "http://localhost:3000/"
+  self.site = THUMBWEBS_SITE_URL
   #self.prefix = 'backend'
 
   # sets timeout -defaults to 60 seconds which is too much to tie up a thread.
@@ -22,4 +22,4 @@ class Thumbwebs::Subscriber  < ActiveResource::Base
   self.password = THUMBWEBS_PASSWORD
   
   
-end  
+end
