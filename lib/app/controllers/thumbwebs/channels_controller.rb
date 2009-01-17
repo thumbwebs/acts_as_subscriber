@@ -14,7 +14,8 @@ class Thumbwebs::ChannelsController < ApplicationController
   # GET /chatters/1.xml
   def show
     @channel = Thumbwebs::Channel.find(params[:id])
-
+    @channel.name ="My channel"
+    @channel.save
     respond_to do |format|
       format.html # show.html.erb
       format.xml  { render :xml => @channel }
