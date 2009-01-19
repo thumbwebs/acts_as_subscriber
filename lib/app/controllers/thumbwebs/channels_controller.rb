@@ -1,11 +1,16 @@
 class Thumbwebs::ChannelsController < ApplicationController
+
+  ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
+   prepend_view_path("#{THUMBWEBS_VIEWS}/channels")
+
   # GET /channels
   # GET /channels.xml
+   
   def index
     @channels = Thumbwebs::Channel.find(:all, :params=>{:thumbwebs_id => 1})
 
     respond_to do |format|
-      format.html {render :template => '/thumbwebs/channels/index'}
+      format.html {render :template => "index"}
       format.xml  { render :xml => @channels }
     end
   end
