@@ -1,8 +1,14 @@
 class Thumbwebs::ChannelsController < ApplicationController
 
   ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
-   prepend_view_path("#{THUMBWEBS_VIEWS}/channels")
-
+  
+  ## prepends path.  will look here first.  Will not conflict with existing views.
+  prepend_view_path("#{THUMBWEBS_VIEWS}/channels")
+   
+   ## appends to end. allows developer to override our views.  rails will look at conventional
+   ## template path first.  May conflict with existing views.
+   #append_view_path("#{THUMBWEBS_VIEWS}/channels")
+   
   # GET /channels
   # GET /channels.xml
    
