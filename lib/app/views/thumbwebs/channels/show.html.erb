@@ -1,0 +1,16 @@
+
+
+  <div class="<%= cycle('row_1', 'row_2') %>">
+
+   
+    <div class="name">
+      <%= link_to @channel.name, thumbwebs_channel_path(@channel) -%>
+    </div>
+	
+	<div class="description">
+	  <%= truncate(@channel.description) -%>
+	</div>
+              
+  
+
+
