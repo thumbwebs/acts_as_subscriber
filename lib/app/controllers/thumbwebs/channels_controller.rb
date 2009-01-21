@@ -3,8 +3,13 @@ class Thumbwebs::ChannelsController < ApplicationController
   ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
   
   ## prepends path.  will look here first.  Will not conflict with existing views.
-  prepend_view_path("#{THUMBWEBS_VIEWS}/channels/")
+  prepend_view_path("#{THUMBWEBS_VIEWS}/channels")
    
+   ### rescues all the active_resource errors 
+   do_thumbwebs_rescues   # located in plugin/lib/thumbwebs.rb
+   
+  
+
    ## appends to end. allows developer to override our views.  rails will look at conventional
    ## template path first.  May conflict with existing views.
    #append_view_path("#{THUMBWEBS_VIEWS}/channels")
@@ -24,7 +29,7 @@ class Thumbwebs::ChannelsController < ApplicationController
   # GET /chatters/1
   # GET /chatters/1.xml
   def show
-    @channel = Thumbwebs::Channel.find(params[:id])
+     @channel = Thumbwebs::Channel.find(params[:id])
     #@channel.name ="My channel"
     #@channel.save
     respond_to do |format|
@@ -96,4 +101,9 @@ class Thumbwebs::ChannelsController < ApplicationController
       format.xml  { head :ok }
     end
   end
+  
+  def show_errors
+     render :template => "show_errors" # show.html.erb  
+    
+  end  
 end
