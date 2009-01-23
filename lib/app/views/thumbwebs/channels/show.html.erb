@@ -11,6 +11,7 @@
 	  <%= truncate(@channel.description) -%>
 	</div>
               
-  
+  <%= link_to "Articles", thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID)%><br>
+  <%=link_to "Subscribe", "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/showlicenses"%>
 
 

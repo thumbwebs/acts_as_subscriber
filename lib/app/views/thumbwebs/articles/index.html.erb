@@ -1,0 +1,17 @@
+<% @articles.each do |article| -%>
+
+  <div class="<%= cycle('row_1', 'row_2') %>">
+
+   
+    <div class="title">
+      <%= link_to article.title, thumbwebs_channel_article_path(:id =>  article, :channel_id => article.channel_id) -%>
+    </div>
+	
+	<div class="body">
+	  <%= article.body -%>
+	</div>
+              
+  
+
+
+<% end -%>

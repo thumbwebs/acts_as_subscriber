@@ -34,7 +34,7 @@ puts "THUMBWEBS_VIEWS = #{THUMBWEBS_VIEWS}"
 
 ## see http://guides.rubyonrails.org/creating_plugins.html
 
-%w{controllers models/thumbwebs helpers/thumbwebs }.each do |dir|
+%w{controllers models helpers }.each do |dir|
   path = File.join(File.dirname(__FILE__), 'app', dir)
   $LOAD_PATH << path
   puts "Thumbwebs: #{path}"

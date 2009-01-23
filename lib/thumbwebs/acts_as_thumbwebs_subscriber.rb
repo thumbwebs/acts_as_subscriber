@@ -19,7 +19,7 @@ module Thumbwebs
       begin
     
         @subscriber = Thumbwebs::Subscriber.find(:all, :params => {:email => self.email,
-                                                                  :uid => self.id})
+                                                          :api => 12345,        :uid => self.id})
       rescue  ActiveResource::ResourceNotFound
         logger.info "Thumbwebs:  user not found."
         return false
