@@ -1,17 +1,36 @@
-<% @articles.each do |article| -%>
 
-  <div class="<%= cycle('row_1', 'row_2') %>">
+<% content_for :head do %>
+  <%= auto_discovery_link_tag %>
+<% end %>
 
-   
-    <div class="title">
-      <%= link_to article.title, thumbwebs_channel_article_path(:id =>  article, :channel_id => article.channel_id) -%>
-    </div>
-	
-	<div class="body">
-	  <%= article.body -%>
-	</div>
-              
-  
+<h2>N Articles</h2>
+<%#= render :partial => 'channels/channel_header'%>
 
+<%#= will_paginate @articles%>
 
-<% end -%>
+ 
+<% @articles.each do |article| %>
+  <div class="article">
+    <h3><%= article.title %></h3>
+    
+
+    <p>
+      <%= article.created_at.to_s(:short) %> 
+      <%= article.synopsis %><br />
+      <% if params[:channel_id] %>
+        <%= link_to 'Read the full article', thumbwebs_channel_article_url(:channel_id => article.channel_id, 
+                                                                         :id => article) %>
+      <% else %>
+        <%= link_to 'Read the full article', thumbwebs_channel_article_url(article) %>
+      <% end %>    
+	  <%# if user_is_producer_of_channel?(article.channel) -%>
+	  
+             <small>
+                <%= link_to 'edit', edit_thumbwebs_channel_article_path(:channel_id => article.channel_id, :id =>article) -%>
+                <%= link_to 'delete', thumbwebs_channel_article_path(:channel_id => article.channel_id, :id => article), :method => :delete, :confirm => 'Are you sure? This will delete the article.' -%>
+                </small>        
+      <%#  self.site = "#{THUMBWEBS_SITE_URL}channels/#{THUMBWEBS_CHANNEL_ID}/"- end -%>
+            </td>
+    </p>
+  </div>
+<% end %>

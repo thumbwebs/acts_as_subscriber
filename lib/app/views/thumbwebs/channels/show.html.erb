@@ -8,7 +8,7 @@
     </div>
 	
 	<div class="description">
-	  <%= truncate(@channel.description) -%>
+	  <%=  @channel.description -%>
 	</div>
               
   <%= link_to "Articles", thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID)%><br>

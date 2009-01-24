@@ -13,7 +13,7 @@ THUMBWEBS_CHANNEL_ID =  @@thumbwebs_config['channel_id']
 THUMBWEBS_USERNAME = @@thumbwebs_config['username']
 THUMBWEBS_PASSWORD = @@thumbwebs_config['password']
 THUMBWEBS_SITE_URL = @@thumbwebs_config['site_url']
-
+THUMBWEBS_API = @@thumbwebs_config['api']
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ##################################################
 
@@ -68,3 +68,16 @@ def do_thumbwebs_rescues
   rescue_from ActiveResource::UnauthorizedAccess, :with => :thumbwebs_unauthorized_access
   rescue_from ActiveResource::TimeoutError, :with => :thumbwebs_time_out_error
 end
+
+def thumbwebs_setup
+    ### checks to see if user is logged in and if so sets header for activeresource
+    if logged_in?
+      Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = current_user.email  
+    end
+end 
+ class ActiveResource::Base
+   def update_attributes(attributes)    
+     load(attributes) && save
+   end
+ end 
+
