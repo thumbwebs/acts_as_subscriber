@@ -2,6 +2,7 @@ class Thumbwebs::ArticlesController < ApplicationController
   before_filter :login_required, :except => [:index, :show] 
   before_filter :thumbwebs_setup
  
+  do_thumbwebs_rescues
   ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
   
   ## prepends path.  will look here first.  Will not conflict with existing views.
@@ -40,10 +41,11 @@ class Thumbwebs::ArticlesController < ApplicationController
   # GET /chatters/new
   # GET /chatters/new.xml
   def new
-    @article = Thumbwebs::Article.new
+    @article = Thumbwebs::Article.new(:title =>'', :synopsis => '',:body =>'', :published =>'',
+                                      :rights =>'', :channel_id => '')
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html {render :template => "new"}# new.html.erb
       format.xml  { render :xml => @article }
     end
   end
@@ -62,13 +64,12 @@ class Thumbwebs::ArticlesController < ApplicationController
   # POST /chatters.xml
   def create
     @article = Thumbwebs::Article.new(params[:article])
-    @article.user_id = logged_in_user.id
-    @chatter.service = "web"
+    @article.user_id = current_user.id
     @article.channel_id = params['channel_id']    
     respond_to do |format|
       if @article.save
         flash[:notice] = 'Article was successfully created.'
-        format.html { redirect_to(thumbwebs_channel_article_path(:id =>@article.id)) }
+        format.html { redirect_to(thumbwebs_channel_articles_path) }
         format.xml  { render :xml => @article, :status => :created, :location => @article }
       else
         format.html { render :action => "new" }
@@ -101,7 +102,7 @@ class Thumbwebs::ArticlesController < ApplicationController
   # DELETE /chatters/1
   # DELETE /chatters/1.xml
   def destroy
-    @article = Article.find(params[:id])
+    @article = Thumbwebs::Article.find(params[:id])
     @article.destroy
 
     respond_to do |format|

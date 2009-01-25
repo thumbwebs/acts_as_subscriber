@@ -70,7 +70,8 @@ def do_thumbwebs_rescues
 end
 
 def thumbwebs_setup
-    ### checks to see if user is logged in and if so sets header for activeresource
+ 
+       ### checks to see if user is logged in and if so sets header for activeresource
     if logged_in?
       Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = current_user.email  
     end
@@ -79,5 +80,11 @@ end
    def update_attributes(attributes)    
      load(attributes) && save
    end
+   # This method is added for compatibility with ActiveRecord. 
+   def new_record? 
+    new? 
+   end
+ 
  end 
-
+ # Alias for +new?+ 
+ 
