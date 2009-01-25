@@ -14,6 +14,7 @@ THUMBWEBS_USERNAME = @@thumbwebs_config['username']
 THUMBWEBS_PASSWORD = @@thumbwebs_config['password']
 THUMBWEBS_SITE_URL = @@thumbwebs_config['site_url']
 THUMBWEBS_API = @@thumbwebs_config['api']
+THUMBWEBS_AUTHORIZED_USER = @@thumbwebs_config['authorized_user']
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ##################################################
 
@@ -70,6 +71,10 @@ def do_thumbwebs_rescues
 end
 
 def thumbwebs_setup
+ 
+  def thumbwebs_authorized?(action = action_name, resource = nil)
+    current_user.login == THUMBWEBS_AUTHORIZED_USER
+  end
  
        ### checks to see if user is logged in and if so sets header for activeresource
     if logged_in?

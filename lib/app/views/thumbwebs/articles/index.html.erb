@@ -3,7 +3,7 @@
   <%= auto_discovery_link_tag %>
 <% end %>
 
-<h2>N Articles</h2>
+<h2>Articles</h2>
 <%#= render :partial => 'channels/channel_header'%>
 
 <%#= will_paginate @articles%>
@@ -23,13 +23,13 @@
       <% else %>
         <%= link_to 'Read the full article', thumbwebs_channel_article_url(article) %>
       <% end %>    
-	  <%# if user_is_producer_of_channel?(article.channel) -%>
+	  <% if thumbwebs_authorized? -%>
 	  
              <small>
                 <%= link_to 'edit', edit_thumbwebs_channel_article_path(:channel_id => article.channel_id, :id =>article) -%>
-                <%= link_to 'delete', thumbwebs_channel_article_path(:channel_id => article.channel_id, :id => article), :method => :delete, :confirm => 'Are you sure? This will delete the article.' -%>
+                <%= link_to 'delete', thumbwebs_channel_article_path(:channel_id => article.channel_id, :id => article), :method => :delete, :confirm => 'Are you sure? This will delete the article!' -%>
                 </small>        
-      <%#  self.site = "#{THUMBWEBS_SITE_URL}channels/#{THUMBWEBS_CHANNEL_ID}/"- end -%>
+        <% end %>
             </td>
     </p>
   </div>
