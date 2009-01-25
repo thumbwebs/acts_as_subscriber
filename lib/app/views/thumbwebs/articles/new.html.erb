@@ -1,0 +1,12 @@
+<h2>Create Article</h2>
+<% form_for :article, 
+            :url => thumbwebs_channel_articles_url, 
+            :html => { :method => :post } do |f| -%>
+  <p>Title:<br /><%= f.text_field :title, :size => 60 %></p>
+  <p>Synopsis:<br /><%= f.text_area :synopsis, :rows => 4, :cols => 60 %></p>
+  <p>Body:<br /><%= f.text_area :body, :rows => 20, :cols => 60 %></p>
+   <p>Published? <%= f.check_box :published %></p>
+  <p>Rights: <%= f.select :rights, Thumbwebs::Article::PERMISSION  %></p>
+  <%= f.hidden_field :channel_id, :value => @channel_id %>
+  <%= submit_tag 'Save' %> or <%= link_to 'cancel', thumbwebs_channel_articles_url %>
+<% end -%>

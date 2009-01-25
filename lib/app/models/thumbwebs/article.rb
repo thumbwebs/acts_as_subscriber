@@ -13,7 +13,7 @@ class Thumbwebs::Article  < ActiveResource::Base
 
   # sets timeout -defaults to 60 seconds which is too much to tie up a thread.
   self.timeout = 10
-
+ 
   ## basic authenication
 
   ## get working with basic authenication which is the present rails way

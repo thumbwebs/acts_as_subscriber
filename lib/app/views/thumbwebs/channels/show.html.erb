@@ -10,8 +10,9 @@
 	<div class="description">
 	  <%=  @channel.description -%>
 	</div>
-              
+  <% if THUMBWEBS_ARTICLES_ENABLED%>
   <%= link_to "Articles", thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID)%><br>
+  <% end %>
   <%=link_to "Subscribe", "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/showlicenses"%>
 
 

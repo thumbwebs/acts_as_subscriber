@@ -52,7 +52,7 @@ class Thumbwebs::ArticlesController < ApplicationController
 
   # GET /chatters/1/edit
   def edit
-    @article = Thumbwebs::Article.find(params[:id],:params=>{:thumbwebs_id => 1, :email => "jimmy@jimmyeaton.com"})
+    @article = Thumbwebs::Article.find(params[:id]})
     
     respond_to do |format|
       format.html {render :template => "edit"}

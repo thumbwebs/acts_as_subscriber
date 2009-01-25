@@ -15,6 +15,7 @@ THUMBWEBS_PASSWORD = @@thumbwebs_config['password']
 THUMBWEBS_SITE_URL = @@thumbwebs_config['site_url']
 THUMBWEBS_API = @@thumbwebs_config['api']
 THUMBWEBS_AUTHORIZED_USER = @@thumbwebs_config['authorized_user']
+THUMBWEBS_ARTICLES_ENABLED = @@thumbwebs_config['articles_enabled']
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ##################################################
 
@@ -72,7 +73,7 @@ end
 
 def thumbwebs_setup
  
-  def thumbwebs_authorized?(action = action_name, resource = nil)
+  def user_is_producer_of_channel?(channel_id)
     current_user.login == THUMBWEBS_AUTHORIZED_USER
   end
  
