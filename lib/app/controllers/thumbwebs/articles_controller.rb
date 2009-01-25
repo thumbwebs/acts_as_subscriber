@@ -111,6 +111,22 @@ class Thumbwebs::ArticlesController < ApplicationController
     end
   end
   
+  # Admin article                                                                        #
+  ########################################################################################
+
+    def manage
+      
+      ## will call the manage method ie, http://thumbwebs.com/channels/1/articles/manage
+      @articles = Thumbwebs::Article.find(:all, :from => :manage)
+      #redirect_to admin_articles_url
+
+      respond_to do |format|
+        format.html { render :template => 'index'  }
+        #format.mobile {   }
+        #format.iphone { }
+        format.xml { render :xml => @articles.to_xml }
+      end
+    end
   def show_errors
      render :template => "show_errors" # show.html.erb  
     
