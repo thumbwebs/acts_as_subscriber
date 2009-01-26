@@ -71,6 +71,10 @@ def do_thumbwebs_rescues
   rescue_from ActiveResource::TimeoutError, :with => :thumbwebs_time_out_error
 end
 
+def user_is_producer_of_channel?(channel_id)
+  current_user.login == THUMBWEBS_AUTHORIZED_USER
+end
+
 def thumbwebs_setup
  
   def user_is_producer_of_channel?(channel_id)
