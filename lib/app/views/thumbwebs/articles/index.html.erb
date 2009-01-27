@@ -26,16 +26,16 @@
 	  <% if logged_in? && user_is_producer_of_channel?(article.channel_id) -%>
 	  
              <small>
-	<%= link_to 'New Article', new_thumbwebs_channel_article_path(:channel_id => article.channel_id) -%>
-                <%= link_to 'edit', edit_thumbwebs_channel_article_path(:channel_id => article.channel_id, :id =>article) -%>
+            <%= link_to 'edit', edit_thumbwebs_channel_article_path(:channel_id => article.channel_id, :id =>article) -%>
                 <%= link_to 'delete', thumbwebs_channel_article_path(:channel_id => article.channel_id, :id => article), :method => :delete, :confirm => 'Are you sure? This will delete the article!' -%>
                 </small>        
         <% end %>
             </td>
     </p>
   </div>
-	  <% if logged_in? && user_is_producer_of_channel?(article.channel_id) -%>
 	  
-           <%= link_to 'New Article', new_thumbwebs_channel_article_path(:channel_id => article.channel_id) -%>
 <% end %>
+<% if user_is_producer_of_channel?(params['channel_id']) -%>
+  
+       <%= link_to 'New Article', new_thumbwebs_channel_article_path(:channel_id => params['channel_id']) -%>
 <% end %>

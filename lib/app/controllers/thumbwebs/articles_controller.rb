@@ -2,16 +2,10 @@ class Thumbwebs::ArticlesController < ApplicationController
   before_filter :login_required, :except => [:index, :show] 
   before_filter :thumbwebs_setup
  ## TODO need before_filter for producer
-  before_filter :owner_required, :only => [:manage]
+  before_filter :owner_required, :only => [:manage, :new, :destroy]
   
-  do_thumbwebs_rescues
-  ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
-  
-  ## prepends path.  will look here first.  Will not conflict with existing views.
-  prepend_view_path("#{THUMBWEBS_VIEWS}/articles")
-  ## appends to end. allows developer to override our views.  rails will look at conventional
-  ## template path first.  May conflict with existing views.
-  #append_view_path("#{THUMBWEBS_VIEWS}/channels")
+   do_thumbwebs_rescues
+    ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
    
   ## if is is_logged_in set email address in activeresourceheaders
 
@@ -33,8 +27,7 @@ class Thumbwebs::ArticlesController < ApplicationController
   # GET /chatters/1
   # GET /chatters/1.xml
   def show
-     @article = Thumbwebs::Article.find(params[:id], :params => {:email => "admin@arkietv.com"
-                                                               })
+     @article = Thumbwebs::Article.find(params[:id])
                                                    
  
     #see http://dev.rubyonrails.org/ticket/8305,  to_xml does not work with namespaced models
@@ -137,5 +130,21 @@ class Thumbwebs::ArticlesController < ApplicationController
   def show_errors
      render :template => "show_errors" # show.html.erb  
     
+  end  
+  def thumbwebs_setup
+    ## need to escape ActiveResources errors
+   
+
+    ## prepends path.  will look here first.  Will not conflict with existing views.
+    prepend_view_path("#{THUMBWEBS_VIEWS}/articles")
+    ## appends to end. allows developer to override our views.  rails will look at conventional
+    ## template path first.  May conflict with existing views.
+    #append_view_path("#{THUMBWEBS_VIEWS}/channels")
+         ### checks to see if user is logged in and if so sets header for activeresource
+      if logged_in?
+        Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = current_user.email  
+      else
+        Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = '' 
+      end 
   end  
 end

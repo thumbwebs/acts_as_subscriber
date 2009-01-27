@@ -72,19 +72,28 @@ def do_thumbwebs_rescues
 end
 
 def user_is_producer_of_channel?(channel_id)
-  current_user.login == THUMBWEBS_AUTHORIZED_USER
+  logged_in? && current_user.login == THUMBWEBS_AUTHORIZED_USER
 end
 
 def owner_required
-   if current_user.login == THUMBWEBS_AUTHORIZED_USER
+   ## before filter for owner of channel. 
+   if logged_in? && current_user.login == THUMBWEBS_AUTHORIZED_USER
      return true
     else
       flash[:error] = "Unauthorized Access-Must be logged-in as owner."
       redirect_to show_errors_thumbwebs_channels_path
     end
 end  
-def thumbwebs_setup
- 
+def thumbwebs_setup_articles
+  ## need to escape ActiveResources errors
+  #do_thumbwebs_rescues
+  ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
+  
+  ## prepends path.  will look here first.  Will not conflict with existing views.
+  prepend_view_path("#{THUMBWEBS_VIEWS}/articles")
+  ## appends to end. allows developer to override our views.  rails will look at conventional
+  ## template path first.  May conflict with existing views.
+  #append_view_path("#{THUMBWEBS_VIEWS}/channels")
        ### checks to see if user is logged in and if so sets header for activeresource
     if logged_in?
       Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = current_user.email  
