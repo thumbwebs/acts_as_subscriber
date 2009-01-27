@@ -41,7 +41,7 @@ puts "THUMBWEBS_VIEWS = #{THUMBWEBS_VIEWS}"
   $LOAD_PATH << path
   puts "Thumbwebs: #{path}"
   ActiveSupport::Dependencies.load_paths << path
-  ActiveSupport::Dependencies.load_once_paths.delete(path)
+ # ActiveSupport::Dependencies.load_once_paths.delete(path)
 end
 ##########################################################################
 
@@ -75,11 +75,15 @@ def user_is_producer_of_channel?(channel_id)
   current_user.login == THUMBWEBS_AUTHORIZED_USER
 end
 
+def owner_required
+   if current_user.login == THUMBWEBS_AUTHORIZED_USER
+     return true
+    else
+      flash[:error] = "Unauthorized Access-Must be logged-in as owner."
+      redirect_to show_errors_thumbwebs_channels_path
+    end
+end  
 def thumbwebs_setup
- 
-  def user_is_producer_of_channel?(channel_id)
-    current_user.login == THUMBWEBS_AUTHORIZED_USER
-  end
  
        ### checks to see if user is logged in and if so sets header for activeresource
     if logged_in?

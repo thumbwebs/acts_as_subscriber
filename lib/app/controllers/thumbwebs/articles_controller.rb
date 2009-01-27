@@ -1,7 +1,9 @@
 class Thumbwebs::ArticlesController < ApplicationController
   before_filter :login_required, :except => [:index, :show] 
   before_filter :thumbwebs_setup
- 
+ ## TODO need before_filter for producer
+  before_filter :owner_required, :only => [:manage]
+  
   do_thumbwebs_rescues
   ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
   
