@@ -23,7 +23,7 @@
       <% else %>
         <%= link_to 'Read the full article', thumbwebs_channel_article_url(article) %>
       <% end %>    
-	  <% if user_is_producer_of_channel?(article.channel_id) -%>
+	  <% if logged_in? && user_is_producer_of_channel?(article.channel_id) -%>
 	  
              <small>
                 <%= link_to 'edit', edit_thumbwebs_channel_article_path(:channel_id => article.channel_id, :id =>article) -%>
