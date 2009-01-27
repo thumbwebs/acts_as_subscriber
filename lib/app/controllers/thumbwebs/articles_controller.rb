@@ -17,10 +17,14 @@ class Thumbwebs::ArticlesController < ApplicationController
    
   def index
     @articles = Thumbwebs::Article.find(:all, :params=>{:thumbwebs_id => 1, :email => "admin@arkietv.com"})
-
+ 
+ # TODO, to_xml and namespaced models  
+ #see http://dev.rubyonrails.org/ticket/8305,  to_xml does not work with namespaced models
+ #see http://snakesgemscoffee.blogspot.com/2007/05/activerecordbasetoxml-woes.html
+ #see http://dev.rubyonrails.org/attachment/ticket/8308/xml_serialize.patch   
     respond_to do |format|
       format.html {render :template => "index"}
-      format.xml  { render :xml => @articles }
+      format.xml  {render :xml => @articles.to_xml( :root => 'thumbwebs:articles' , :children => 'thumbwebs:article') }
     end
   end
 
@@ -30,8 +34,9 @@ class Thumbwebs::ArticlesController < ApplicationController
      @article = Thumbwebs::Article.find(params[:id], :params => {:email => "admin@arkietv.com"
                                                                })
                                                    
-    #@channel.name ="My channel"
-    #@channel.save
+ 
+    #see http://dev.rubyonrails.org/ticket/8305,  to_xml does not work with namespaced models
+    #
     respond_to do |format|
       format.html{render :template => "show"} # show.html.erb
       format.xml  { render :xml => @article }
@@ -46,13 +51,13 @@ class Thumbwebs::ArticlesController < ApplicationController
 
     respond_to do |format|
       format.html {render :template => "new"}# new.html.erb
-      format.xml  { render :xml => @article }
+      format.xml  { render :xml => @article, :root => 'thumbwebs:articles' }
     end
   end
 
   # GET /chatters/1/edit
   def edit
-    @article = Thumbwebs::Article.find(params[:id])
+    @article  = Thumbwebs::Article.find(params[:id])
     
     respond_to do |format|
       format.html {render :template => "edit"}
