@@ -1,0 +1,20 @@
+<!-- include the only required JavaScript file --> 
+<script src="http://static.flowplayer.org/js/flowplayer-3.0.3.min.js"></script>     
+ 
+<!--  
+   Setup player with standard HTML syntax 
+      * movie file is specified in "href" attribute  
+      * player dimensions are defined with CSS   
+--> 
+<a  
+    href="<%="@media_item.media_path %>""  
+    style="display:block;width:425px;height:300px;"  
+    id="player"> 
+</a> 
+ 
+<!-- this script block will install Flowplayer inside previous anchor tag --> 
+<script language="JavaScript"> 
+    flowplayer("player", "/swf/flowplayer-3.0.3.swf"); 
+</script>
+
+Show this setup as a working standalone page. 
