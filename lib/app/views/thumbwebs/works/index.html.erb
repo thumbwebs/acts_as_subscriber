@@ -1,0 +1,35 @@
+
+<% content_for :head do %>
+  <%= auto_discovery_link_tag %>
+<% end %>
+
+<h2>Works</h2>
+<%#= render :partial => 'channels/channel_header'%>
+
+<%#= will_paginate @articles%>
+
+ 
+<% @works.each do |work| %>
+  <div class="article">
+    <h3><%= link_to work.name, thumbwebs_channel_work_path(:channel_id => work.channel_id, :id => work) %></h3>
+        <h3><%= truncate(work.description, 80) %></h3>
+         <% work.media_items.each do |media_item| %>
+         <h3><%= play_link(media_item, work) %>
+         <% end %> 
+        <h3><%#=link_to 'Play', play_thumbwebs_channel_media_item_path(:id) %>
+	  <% if logged_in? && user_is_producer_of_channel?(work.channel_id) -%>
+	  
+             <small>
+            <%= link_to 'edit', edit_thumbwebs_channel_work_path(:channel_id => work.channel_id, :id =>work) -%>
+                <%= link_to 'delete', thumbwebs_channel_work_path(:channel_id => work.channel_id, :id => work), :method => :delete, :confirm => 'Are you sure? This will delete the work!' -%>
+                </small>        
+        <% end %>
+            </td>
+    </p>
+  </div>
+	  
+<% end %>
+<% if user_is_producer_of_channel?(params['channel_id']) -%>
+  
+       <%= link_to 'New Work', new_thumbwebs_channel_work_path(:channel_id => params['channel_id']) -%>
+<% end %>

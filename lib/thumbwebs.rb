@@ -99,6 +99,7 @@ def thumbwebs_setup_articles
       Thumbwebs::Article.headers['X-THUMBWEBS_USER_EMAIL'] = current_user.email  
     end
 end 
+
  class ActiveResource::Base
    def update_attributes(attributes)    
      load(attributes) && save

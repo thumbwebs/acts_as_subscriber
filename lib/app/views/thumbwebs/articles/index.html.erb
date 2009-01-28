@@ -18,8 +18,7 @@
       <%= article.created_at.to_s(:short) %> 
       <%= article.synopsis %><br />
       <% if params[:channel_id] %>
-        <%= link_to 'Read the full article', thumbwebs_channel_article_url(:channel_id => article.channel_id, 
-                                                                         :id => article) %>
+        <%= link_to 'Read the full article', thumbwebs_channel_article_url(:channel_id => article.channel_id, :id => article) %>
       <% else %>
         <%= link_to 'Read the full article', thumbwebs_channel_article_url(article) %>
       <% end %>    
