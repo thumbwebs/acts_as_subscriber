@@ -16,6 +16,7 @@ THUMBWEBS_SITE_URL = @@thumbwebs_config['site_url']
 THUMBWEBS_API = @@thumbwebs_config['api']
 THUMBWEBS_AUTHORIZED_USER = @@thumbwebs_config['authorized_user']
 THUMBWEBS_ARTICLES_ENABLED = @@thumbwebs_config['articles_enabled']
+THUMBWEBS_WORKS_ENABLED = @@thumbwebs_config['works_enabled']
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ##################################################
 

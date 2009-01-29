@@ -12,10 +12,14 @@
 	</div>
   <% if THUMBWEBS_ARTICLES_ENABLED%>
   <%= link_to "Articles", thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID)%><br>
-
+	<%end%>
+  <% if THUMBWEBS_WORKS_ENABLED%>
+  <%= link_to "Works", thumbwebs_channel_works_path(:channel_id => THUMBWEBS_CHANNEL_ID)%><br>
+	<%end%>	
+	
 	  <% if user_is_producer_of_channel?(THUMBWEBS_CHANNEL_ID) -%>
 	<%= link_to "Manage Articles", manage_thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID) %><br>
-	<%end%>
+
 	<%end%>
   <%=link_to "Subscribe", "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/showlicenses"%>
 
