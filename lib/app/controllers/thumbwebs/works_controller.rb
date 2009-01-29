@@ -3,7 +3,8 @@ class Thumbwebs::WorksController < ApplicationController
   before_filter :thumbwebs_setup
  ## TODO need before_filter for producer
   before_filter :owner_required, :only => [:manage, :new, :destroy]
-      prepend_view_path("#{THUMBWEBS_VIEWS}/works")
+      prepend_view_path("#{THUMBWEBS_VIEWS}works")
+      prepend_view_path(THUMBWEBS_VIEWS_PARTIALS)
    do_thumbwebs_rescues
     ## adds path vendor/plugins/thumbwebs/lib/app/views/thumbwebs/channels to view_path
    
@@ -12,7 +13,7 @@ class Thumbwebs::WorksController < ApplicationController
 
    
   def index
-    @works = Thumbwebs::Work.find(:all)
+    @works = Thumbwebs::Work.find(:all, :include => :media_items)
  # TODO, to_xml and namespaced models  
  #see http://dev.rubyonrails.org/ticket/8305,  to_xml does not work with namespaced models
  #see http://snakesgemscoffee.blogspot.com/2007/05/activerecordbasetoxml-woes.html
@@ -133,6 +134,7 @@ class Thumbwebs::WorksController < ApplicationController
   
   def play
     @media_item = Thumbwebs::MediaItem.find(:one, :from => :play, :params => {:media_item_id => params['media_item_id']})
+    
     respond_to do |format|
       format.html { render :template => 'play'  }
       #format.mobile {   }

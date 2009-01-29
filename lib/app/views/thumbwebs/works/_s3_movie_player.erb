@@ -1,5 +1,4 @@
-<!-- include the only required JavaScript file --> 
-<script src="http://static.flowplayer.org/js/flowplayer-3.0.3.min.js"></script>     
+     
  
 <!--  
    Setup player with standard HTML syntax 
@@ -7,7 +6,7 @@
       * player dimensions are defined with CSS   
 --> 
 <a  
-    href="<%="@media_item.media_path %>""  
+    href= <%=CGI.escape(@media_item.media_path) %>  
     style="display:block;width:425px;height:300px;"  
     id="player"> 
 </a> 

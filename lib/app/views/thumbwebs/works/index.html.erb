@@ -13,9 +13,11 @@
   <div class="article">
     <h3><%= link_to work.name, thumbwebs_channel_work_path(:channel_id => work.channel_id, :id => work) %></h3>
         <h3><%= truncate(work.description, 80) %></h3>
+         <% if work.media_items %>
          <% work.media_items.each do |media_item| %>
          <h3><%= play_link(media_item, work) %>
          <% end %> 
+         <% end%>
         <h3><%#=link_to 'Play', play_thumbwebs_channel_media_item_path(:id) %>
 	  <% if logged_in? && user_is_producer_of_channel?(work.channel_id) -%>
 	  

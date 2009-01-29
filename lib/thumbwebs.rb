@@ -22,6 +22,7 @@ puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 
 ## setting path to view templates ################
 THUMBWEBS_VIEWS = File.join(File.dirname(__FILE__), 'app', 'views/thumbwebs/')
+THUMBWEBS_VIEWS_PARTIALS = File.join(File.dirname(__FILE__), 'app', 'views/')
 puts "THUMBWEBS_VIEWS = #{THUMBWEBS_VIEWS}"
 #################################################
 
