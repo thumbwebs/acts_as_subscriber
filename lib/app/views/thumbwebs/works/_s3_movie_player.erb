@@ -1,6 +1,6 @@
      
      <% content_for :thumbwebs_head do %>
-      <%= javascript_include_tag 'flowplayer' %> 
+      <%= javascript_include_tag '/thumbwebs/javascripts/flowplayer' %> 
      <%end %>
 <!--  
    Setup player with standard HTML syntax 
@@ -15,7 +15,7 @@
  
 <!-- this script block will install Flowplayer inside previous anchor tag --> 
 <script language="JavaScript"> 
-    flowplayer("player", "/swf/flowplayer-3.0.3.swf"); 
+    flowplayer("player", "/thumbwebs/swf/flowplayer-3.0.3.swf"); 
 </script>
 
 Show this setup as a working standalone page. 
