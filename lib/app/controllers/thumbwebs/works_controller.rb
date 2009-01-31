@@ -13,6 +13,7 @@ class Thumbwebs::WorksController < ApplicationController
 
    
   def index
+    flash.keep
     @works = Thumbwebs::Work.find(:all, :include => :media_items)
  # TODO, to_xml and namespaced models  
  #see http://dev.rubyonrails.org/ticket/8305,  to_xml does not work with namespaced models
@@ -117,7 +118,7 @@ class Thumbwebs::WorksController < ApplicationController
     def manage
       
       ## will call the manage method ie, http://thumbwebs.com/channels/1/articles/manage
-      @articles = Thumbwebs::Article.find(:all, :from => :manage)
+      @articles = Thumbwebs::Work.find(:all, :from => :manage)
       #redirect_to admin_articles_url
 
       respond_to do |format|
@@ -135,12 +136,23 @@ class Thumbwebs::WorksController < ApplicationController
   def play
     @media_item = Thumbwebs::MediaItem.find(:one, :from => :play, :params => {:media_item_id => params['media_item_id']})
     
-    respond_to do |format|
-      format.html { render :template => 'play'  }
-      #format.mobile {   }
-      #format.iphone { }
-      format.xml { render :xml => @media_item.to_xml }
+    if @media_item.work.rights == 'public'
+      respond_to do |format|
+        format.html {render :template => 'play'}
+      end  
+    elsif logged_in? && current_user.is_thumbwebs_subscriber?
+      respond_to do |format|
+        format.html {render :template => 'play'}
+      end  
+    else
+        flash.keep
+        flash[:error] = 'Must have a subscription!'
+        respond_to do |format|
+        format.html { redirect_to(thumbwebs_channel_works_path) }
+        end
     end
+     
+   
   end  
   
   private

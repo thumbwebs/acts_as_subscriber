@@ -1,0 +1,18 @@
+
+
+<OBJECT
+  ID="mediaPlayer"
+  CLASSID="CLSID:22d6f312-b0f6-11d0-94ab-0080c74c7e95"
+  CODEBASE="http://activex.microsoft.com/activex/controls/mplayer/en/nsmp2inf.cab#Version=5,1,52,701"
+  // (The above two lines should be joined as one line.
+  // They have been split for formatting purposes.)
+  STANDBY="Loading Microsoft Windows Media Player components..."
+  TYPE="application/x-oleobject">
+  <PARAM NAME="fileName" VALUE="<%=@path_to_media %>">
+  <PARAM NAME="animationatStart" VALUE="true">
+  <PARAM NAME="transparentatStart" VALUE="true">
+  <PARAM NAME="autoStart" VALUE="true">
+  <PARAM NAME="showControls" VALUE="true">
+</OBJECT>
+
+<p><%= @media_item.work.description %></p>

@@ -22,7 +22,7 @@
 	  <% if logged_in? && user_is_producer_of_channel?(work.channel_id) -%>
 	  
              <small>
-            <%= link_to 'edit', edit_thumbwebs_channel_work_path(:channel_id => work.channel_id, :id =>work) -%>
+            <%= link_to 'edit', "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/works/#{work.id}/edit"  -%>
                 <%= link_to 'delete', thumbwebs_channel_work_path(:channel_id => work.channel_id, :id => work), :method => :delete, :confirm => 'Are you sure? This will delete the work!' -%>
                 </small>        
         <% end %>
@@ -33,5 +33,5 @@
 <% end %>
 <% if user_is_producer_of_channel?(params['channel_id']) -%>
   
-       <%= link_to 'New Work', new_thumbwebs_channel_work_path(:channel_id => params['channel_id']) -%>
+       <%= link_to 'New Work', "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/works/new"  -%>
 <% end %>
