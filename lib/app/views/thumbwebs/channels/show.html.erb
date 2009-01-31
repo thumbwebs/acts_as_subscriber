@@ -19,6 +19,9 @@
 	
 	  <% if user_is_producer_of_channel?(THUMBWEBS_CHANNEL_ID) -%>
 	<%= link_to "Manage Articles", manage_thumbwebs_channel_articles_path(:channel_id => THUMBWEBS_CHANNEL_ID) %><br>
+	<%= link_to "Manage Works","http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/works/manage" %><br><br>
+	<%=link_to "Edit Thumbweb.", "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/edit" %><br>
+	
 	<%=link_to "Edit Thumbweb.", "http://thumbwebs.com/channels/#{THUMBWEBS_CHANNEL_ID}/edit" %><br>
 
 	<%end%>
