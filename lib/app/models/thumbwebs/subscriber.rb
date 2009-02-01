@@ -7,7 +7,7 @@ class Thumbwebs::Subscriber  < ActiveResource::Base
   ## Subscribers is nested under channels on server
 
   # this will nest subscribers under channels
-  self.site = "#{THUMBWEBS_SITE_URL}channels/#{THUMBWEBS_CHANNEL_ID}/"
+  self.site = "#{THUMBWEBS_SITE_URL}/channels/#{THUMBWEBS_CHANNEL_ID}/"
 
   #self.prefix = 'backend'
 

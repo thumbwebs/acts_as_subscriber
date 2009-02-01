@@ -8,7 +8,7 @@ class Thumbwebs::Work  < ActiveResource::Base
 
   # this will nest subscribers under channels
   #self.site = "http://localhost:3000/"
-  self.site = "#{THUMBWEBS_SITE_URL}channels/#{THUMBWEBS_CHANNEL_ID}/"
+  self.site = "#{THUMBWEBS_SITE_URL}/channels/#{THUMBWEBS_CHANNEL_ID}/"
   #self.prefix = 'backend'
 
   # sets timeout -defaults to 60 seconds which is too much to tie up a thread.
