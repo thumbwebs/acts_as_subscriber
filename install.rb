@@ -1,6 +1,9 @@
 # Install hook code here
 require 'fileutils'
 
+#TODO directory copies also copies .svn files which will cause headaches for client program
+# need to remove .svn files?
+
 puts "copying thumbwebs.yml"
 thumbwebs_config = File.dirname(__FILE__) + '/../../../config/thumbwebs.yml'
 FileUtils.cp File.dirname(__FILE__) + '/thumbwebs.yml.tpl', thumbwebs_config unless File.exist?(thumbwebs_config)
