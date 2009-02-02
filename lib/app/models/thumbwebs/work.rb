@@ -22,13 +22,13 @@ class Thumbwebs::Work  < ActiveResource::Base
   self.password = THUMBWEBS_PASSWORD
   
   
-                  PERMISSION = [
-                             ["Public",   "public"],
-               #             ["Private",  "private"],
-               #              ["Members Only",  "member"],
-               #              ["Premium Member",  "premium"],
-                             ["Channel Licensed","channel_licensed"],
-               #              ["Licensed", "licensed"],
+   PERMISSION = [
+                ["Public",   "public"],
+ #              ["Private",  "private"],
+ #              ["Members Only",  "member"],
+ #              ["Premium Member",  "premium"],
+                ["Channel Licensed","channel_licensed"],
+#               ["Licensed", "licensed"],
                              ].freeze
              
  self.headers['X-THUMBWEBS_API'] = THUMBWEBS_API

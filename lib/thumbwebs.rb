@@ -8,7 +8,7 @@ rescue
 raise ConfigFileNotFoundError.new('File %s not found' % @@thumbwebs_config)
 end
 
-##### set thumbwebs global variables ##############
+##### set thumbwebs global variables from thumbwebs.yml ##############
 THUMBWEBS_CHANNEL_ID =  @@thumbwebs_config['channel_id']
 THUMBWEBS_USERNAME = @@thumbwebs_config['username']
 THUMBWEBS_PASSWORD = @@thumbwebs_config['password']
@@ -21,6 +21,9 @@ THUMBWEBS_SITES_URL = @@thumbwebs_config['sites_url']
 puts "=> Loading Thumbwebs channel_id is: #{THUMBWEBS_CHANNEL_ID}\n"
 ##################################################
 
+##### set path to images server #####################
+THUMBWEBS_IMAGES_SERVER = 'http//thumbwebs.com/images'
+##################################################
 
 ## setting path to view templates ################
 THUMBWEBS_VIEWS = File.join(File.dirname(__FILE__), 'app', 'views/thumbwebs/')
@@ -74,19 +77,33 @@ def do_thumbwebs_rescues
   rescue_from ActiveResource::TimeoutError, :with => :thumbwebs_time_out_error
 end
 
+## Helper to protect parts of pages
 def user_is_producer_of_channel?(channel_id)
   logged_in? && current_user.login == THUMBWEBS_AUTHORIZED_USER
 end
 
+## Before_filter to protect actions
+def thumbwebs_subscription_required
+  if logged_in?  && current_user.is_thumbwebs_subscriber?
+    return true
+  else
+    flash[:error] = "Thumbwebs Subscription Required."
+    redirect_to  thumbwebs_root_path
+  end
+end 
+
+## Before_filter requiring admin permissions
 def owner_required
    ## before filter for owner of channel. 
    if logged_in? && current_user.login == THUMBWEBS_AUTHORIZED_USER
      return true
     else
       flash[:error] = "Unauthorized Access-Must be logged-in as owner."
-      redirect_to show_errors_thumbwebs_channels_path
+      redirect_to thumbwebs_root_path
     end
 end  
+
+
 def thumbwebs_setup_articles
   ## need to escape ActiveResources errors
   #do_thumbwebs_rescues

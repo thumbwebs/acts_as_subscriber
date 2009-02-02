@@ -1,4 +1,4 @@
 
-<a href="<%=@path_to_media %>" target="_blank"><%= @work.name %><br /> <%= image_tag('/images/pdf_icon.gif',:border => 0) -%></a>
+<a href="<%=@media_item.media_path %>" target="_blank"><%= @media_item.work.name %><br /> <%= image_tag("thumbwebs/pdf_icon.gif",:border => 0) -%></a>
 
-<p><%= white_list @media_item.work.description %></p>
+<p><%= @media_item.work.description %></p>
