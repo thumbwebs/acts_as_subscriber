@@ -8,12 +8,27 @@ namespace :thumbwebs do
   
   desc 'Installs required swf & javascript files to the public/javascripts directory.'
   task :install do
-    FileUtils.cp_r Dir[PLUGIN_ROOT + '/public_files/images'], RAILS_ROOT + '/public/images/thumbwebs/'
-    FileUtils.cp_r Dir[PLUGIN_ROOT + '/public_files/javascripts'], RAILS_ROOT + '/public/javascripts/thumbwebs/'
-    #FileUtils.cp_r Dir[PLUGIN_ROOT + '/public_files/swf'], RAILS_ROOT + '/public/images/thumbwebs/'
-    
-    #FileUtils.cp Dir[PLUGIN_ROOT + '/assets/javascripts/*.js'], RAILS_ROOT + '/public/javascripts'
-  end
+    puts "copying thumbwebs.yml"
+    thumbwebs_config =  RAILS_ROOT + '/config/thumbwebs.yml'
+    FileUtils.cp File.dirname(__FILE__) + '/../thumbwebs.yml.tpl', thumbwebs_config unless File.exist?(thumbwebs_config)
+
+    puts "copying thumbwebs images"
+    ### copy public image files directory to main Rails app
+    thumbwebs_public = RAILS_ROOT + '/public/images/thumbweb/'                                                                                                                                                                                                                                                                                                                              
+    FileUtils.cp_r File.dirname(__FILE__) + '/../public_files/images/', thumbwebs_public unless File.exist?(thumbwebs_config)
+
+    puts "copying thumbwebs javascripts"
+    ### copy public javascripts files directory to main Rails app
+    thumbwebs_public = RAILS_ROOT + '/public/javascripts/thumbwebs/'
+    thumbwebs_plugin= File.dirname(__FILE__) + '/../public_files/javascripts/'
+    FileUtils.cp_r thumbwebs_plugin, thumbwebs_public unless File.exist?(thumbwebs_public)
+    puts "thumbwebs_public = #{thumbwebs_public}"
+
+    puts "copying thumbwebs flash files"
+    ### copy public swf files directory to main Rails app
+    thumbwebs_public = RAILS_ROOT + '/public/images/thumbwebs/' 
+    FileUtils.cp_r File.dirname(__FILE__) + '/../public_files/swf/', thumbwebs_public #unless File.exist?(thumbwebs_public)
+    puts "copying" end
   
   desc 'Removes the swf & javascripts & images for the thumbwebs plugin.'
   task :remove do
@@ -25,3 +40,4 @@ namespace :thumbwebs do
   
   
 end  
+
