@@ -1,19 +1,138 @@
-Thumbwebs
+acts_as_thumbwebs_subscriber plugin
 =========
 
-Adds acts_as_thumbwebs_subscriber to the User Model
-Adds method is_thumbwebs_subscriber? to user model
+Introduction
 
-Uses active resource to call thumbwebs.com to check to see if user has an active subscription to the thumbweb.
+#### WARNING NOTE:  ####################################################################### 
+We are in beta and the website is in sandbox mode so no money changes hands at this time but everything should be close to working as it will be in production.  However, the site may be unavailable and unstable at times.  Subscriptions can be purchased and your Amazon.com sandbox merchant account will be credited on Amazon.com FPS sandbox.
 
-Returns the subscription record if so, otherwise returns Error.
+Subscriptions will be renewed according to license parameters.  So go ahead and set up your channel and issue licenses and test it out.
+###########################################################################################
+
+Using this plugin you can make your Ruby on Rails application a membership based website within 15 minutes.
+
+This plugin integrates any Ruby on Rails application with Thumbwebs.com and Amazon FPS.
+
+Thumbwebs.com is a membership based site.  Thumbwebs.com uses Amazon FPS to allow a Rails website to 
+sell time-based subscriptions to protected parts of the site.  Thumbwebs.com handles the backend automatically by handling the renewal of subscriptions.
+
+A member of your site can buy a subscription to your thumbweb on thumbwebs.com that gives the member one hour, one day, one week or one month access to protected parts of your site.  The subscription can be renewed automatically each time period as provided for in the license.
+
+You are paid directly and immediately by Amazon.com on purchased subscriptions.  Thumbwebs.com handles the backend on a commission basis.  
+
+Thumbwebs.com comes prepackaged with articles, blogs, video, audio, forum, newsletters and ebook features.  Your site can instantly start selling membership based access to the protected parts of your site and/or integrate the prepackaged features within your site.
+
+Audio, video and pdfs medias can be uploaded to Amazon S3 and signed urls created limiting access to the media.
 
 
+FEATURES:
 
-Example
+
+Makes available acts_as_thumbwebs_subscriber to your User Model
+
+acts_as_thumbwebs adds the method is_thumbwebs_subscriber? to your User model
+
+The plugin makes available the following before_filter method:
+
+before_filter :thumbwebs_subscription_required 
+
+to your controllers.  Use this to protect index and show methods in your controllers.
+
+The plugin uses activeresource to call thumbwebs.com to check to see if user has an active subscription to your site.
+
+The plugin uses activeresource to prepackage your site with your videos, audios, pdfs, newsletters and forums all of which can be protected by requiring an active subscription.
+
+The plugin uses the following path on your site: 
+
+/thumbwebs
+
+This will give access to the prepackaged articles, videos, audios, ebooks, newsletters, forums models that will be available for subscriptions.
+
+
+Examples
 =======
 
-Example goes here.
+To enable subscription features in your User model add the following to your user model:
+
+class User < ActiveRecord::Base
+#################################
+acts_as_thumbwebs_subscriber    #
+#################################
+The above will add the method "is_thumbwebs_subscriber?" to your model.
+
+You can use this in a view or controller as follows:
+
+########################################### 
+if current_user.is_thumbwebs_subscriber?  #
+###########################################
+
+This will return true if the current_user has a valid unexpired subscription and return false otherwise.
+
+To limit access to controller methods add this to a controller.
+
+class ArticlesController < ApplicationController
+####################################################################
+before_filter :thumbwebs_subscription_required, :only =>[:show]    #
+####################################################################
 
 
-Copyright (c) 2009 [name of plugin creator], released under the MIT license
+This will check to see if the logged_in_user has a valid unexpired subscription or it will redirect the user to a page to purchase a subscription.
+
+This plugin should work out of the box with the restful_authenication plugin. If you do not have restful_authenciation then your user model needs to define the following methods:
+   
+ logged_in?  # return true if the user is logged in.
+ current_user   #return the currently logged in user
+
+INSTALLATION:
+
+The following assumes you have joined thumbwebs.com as a producer and have created a channel. It assumes you have an Amazon business account and have installed the necessary tokens.  We are in beta and thumbwebs.com is in the sandbox mode so no money changes hands at this time.  But it uses the sandbox feature on amazon.com so you can see how everything works.  Members can buy subscriptions and subscriptions will be renewed according the license parameters.  
+
+To join thumbwebs.com as a producer and create a channel go to 
+
+sandboxthumbwebs.com/producer 
+
+and follow the instructions.  You will need to install the necessary amazon tokens and create your amazon business account on amazon sandbox.  This should only take a few minutes.
+
+Install the plugin:
+
+1. script/plugins install git://github.com/thumbwebs/acts_as_subscriber.git
+
+2. Add the following to your application.html.erb layout in the head section.  This will allow javascripts for the built-in flash player. 
+
+<head>
+
+    <%= yield :thumbwebs_head %>
+
+## your other code   
+</head>
+
+3. Add the following to your user model.
+
+class User < ActiveRecord::Base
+
+##################################
+acts_as_thumbwebs_subscriber     #
+##################################
+
+4. Add the following routes to config/routes.rb
+
+############### Thumbwebs routes##################################################################
+#
+map.thumbwebs_root '/thumbwebs', :controller => 'thumbwebs/channels', :action => 'show', :id => THUMBWEBS_CHANNEL_ID
+
+map.namespace :thumbwebs do |thumbwebs|
+
+thumbwebs.resources :channels,   :collection => {:show_errors => :get} do |channel|
+  channel.resources :articles, :collection => {:manage => :get}
+  channel.resources :works, :collection => {:manage => :get}, :member => {:play => :get}
+ end
+end
+#
+###############################################################################################
+
+5. Edit the installed config/thumbwebs.yml file according to its instructions. 
+
+6. Navigate to /thumbwebs on your site.
+
+
+Copyright (c) 2009 Priority Investments, LLC dba Thumbwebs.com, released under the MIT license
