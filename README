@@ -70,6 +70,7 @@ To enable subscription features in your User model add the following to your use
 
 class User < ActiveRecord::Base
 #################################
+include Thumbwebs               #
 acts_as_thumbwebs_subscriber    #
 #################################
 The above will add the method "is_thumbwebs_subscriber?" to your model.
@@ -109,7 +110,7 @@ and follow the instructions.  You will need to install the necessary amazon toke
 
 2. Install the plugin:
 
- script/plugins install git://github.com/thumbwebs/acts_as_subscriber.git
+ ruby 0script/plugin install git://github.com/thumbwebs/acts_as_subscriber.git
 
 3. Add <%=yield :thumbwebs_head %> to your application.html.erb layout in the head section.  This will allow javascripts for the built-in flash player. By placing it at the top you can override it and use your own javascripts for your own flash player.
 
