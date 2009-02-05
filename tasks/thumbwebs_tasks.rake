@@ -1,12 +1,17 @@
-# desc "Explaining what the task does"
-# task :thumbwebs do
-#   # Task goes here
-# end
- PLUGIN_ROOT = File.dirname(__FILE__) + '/../'
+require 'rake'
+require 'rake/testtask'
+require 'rake/rdoctask'
+require 'fileutils'
+
+PLUGIN_ROOT = File.dirname(__FILE__) + '/../'
+ 
 
 namespace :thumbwebs do
   
-  desc 'Installs required swf & javascript files to the public/javascripts directory.'
+  desc 'Default: run unit tests.'
+  task :default => :test
+  
+  desc 'Installs required images, flash players & javascript files to the public/javascripts directory.'
   task :install do
     puts "copying thumbwebs.yml"
     thumbwebs_config =  RAILS_ROOT + '/config/thumbwebs.yml'
@@ -14,7 +19,7 @@ namespace :thumbwebs do
 
     puts "copying thumbwebs images"
     ### copy public image files directory to main Rails app
-    thumbwebs_public = RAILS_ROOT + '/public/images/thumbweb/'                                                                                                                                                                                                                                                                                                                              
+    thumbwebs_public = RAILS_ROOT + '/public/images/thumbwebs/'                                                                                                                                                                                                                                                                                                                              
     FileUtils.cp_r File.dirname(__FILE__) + '/../public_files/images/', thumbwebs_public unless File.exist?(thumbwebs_config)
 
     puts "copying thumbwebs javascripts"
@@ -28,7 +33,9 @@ namespace :thumbwebs do
     ### copy public swf files directory to main Rails app
     thumbwebs_public = RAILS_ROOT + '/public/images/thumbwebs/' 
     FileUtils.cp_r File.dirname(__FILE__) + '/../public_files/swf/', thumbwebs_public #unless File.exist?(thumbwebs_public)
-    puts "copying" end
+    puts "copying" 
+    
+  end
   
   desc 'Removes the swf & javascripts & images for the thumbwebs plugin.'
   task :remove do
@@ -38,6 +45,20 @@ namespace :thumbwebs do
   
   end
   
+  desc 'Generate documentation for the Thumbwebs plugin.'
+  Rake::RDocTask.new(:rdoc) do |rdoc|
+    rdoc.rdoc_dir = 'rdoc'
+    rdoc.title    = 'ActsAsThumbwebsSubscriber'
+    rdoc.options << '--line-numbers --inline-source'
+    rdoc.rdoc_files.include('README')
+    rdoc.rdoc_files.include('lib/**/*.rb')
+  end
   
+  desc 'Test the Thumbwebs plugin.'
+  Rake::TestTask.new(:test) do |t|
+    t.libs << 'lib'
+    t.pattern = 'test/**/*_test.rb'
+    t.verbose = true
+  end
 end  
 
